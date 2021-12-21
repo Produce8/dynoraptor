@@ -1,4 +1,4 @@
-🧨 Bobolink
+🧨 Dynoraptor
 ==============
 
 The DynamoDB Migrations Tool Command Line Interface (CLI).
