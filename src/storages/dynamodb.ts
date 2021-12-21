@@ -27,14 +27,14 @@ export default class DynamoDBStorage implements Storage {
    * @param options.attributeName - name of the table primaryKey attribute in DynamoDB
    * @param options.timestamp - option to add timestamps to the DynamoDB table
    */
-  constructor({ dynamodb, tableName, attributeName }: DynamoDBStorageOptions = {}) {
+  constructor({ dynamodb, tableName, attributeName, timestamp }: DynamoDBStorageOptions = {}) {
     if (dynamodb && !(dynamodb instanceof DocumentClient)) {
       throw new Error('"dynamodb" must be a DocumentClient instance');
     }
     this.dynamodb = dynamodb || new DocumentClient();
     this.tableName = tableName || 'migrations';
     this.attributeName = attributeName || 'name';
-    this.timestamp = false;
+    this.timestamp = timestamp || false;
   }
 
   /**
@@ -46,7 +46,7 @@ export default class DynamoDBStorage implements Storage {
     const item: DocumentClient.PutItemInputAttributeMap = { [this.attributeName]: migrationName };
 
     if (this.timestamp) {
-      item.timestamp = new Date().toISOString();
+      item.createdAt = new Date().toISOString();
     }
 
     await this.dynamodb.put({ TableName: this.tableName, Item: item }).promise();

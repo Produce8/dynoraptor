@@ -54,7 +54,7 @@ export class Migrator extends Umzug implements Generator {
     region = region || 'us-west-2';
 
     super({
-      storage: new DynamoDBStorage({ dynamodb, tableName, attributeName }),
+      storage: new DynamoDBStorage({ dynamodb, tableName, attributeName, timestamp:true }),
       migrations: {
         params: [dynamodb, options],
         path: migrationsPath,

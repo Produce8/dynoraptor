@@ -70,12 +70,9 @@ describe('DynamoDBStorage tests', () => {
     });
     AWSMock.mock('DynamoDB.DocumentClient', 'put', spy);
 
-    const now = Date.now();
-    jest.spyOn(Date, 'now').mockImplementation(() => now);
-
     const migrationName = 'foo';
     await new DynamoDBStorage({ timestamp: true }).logMigration(migrationName);
-
+    const now = spy.mock.calls[0][0]['Item']['createdAt'];
     const etalon = { TableName: 'migrations', Item: { name: migrationName, createdAt: now } };
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy.mock.calls[0][0]).toEqual(etalon);
