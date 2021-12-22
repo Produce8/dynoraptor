@@ -49,7 +49,7 @@ export function baseOptions(yargs: Argv<BaseCliOptions>) {
       type: 'string'
     })
     .option('typescript', {
-      describe: 'The DynamoDB primaryKey attribute name',
+      describe: 'Create migration file as typescript',
       default: false,
       type: 'boolean'
     });
