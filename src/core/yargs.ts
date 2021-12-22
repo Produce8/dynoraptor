@@ -12,6 +12,7 @@ export interface BaseCliOptions {
   endpointUrl: string;
   tableName: string;
   attributeName: string;
+  typescript: boolean;
 }
 
 export function baseOptions(yargs: Argv<BaseCliOptions>) {
@@ -46,13 +47,18 @@ export function baseOptions(yargs: Argv<BaseCliOptions>) {
       describe: 'The DynamoDB primaryKey attribute name',
       default: 'name',
       type: 'string'
+    })
+    .option('typescript', {
+      describe: 'Create migration file as typescript',
+      default: false,
+      type: 'boolean'
     });
 }
 
 export function baseHandler<T extends BaseCliOptions>(callback: (args: Arguments<T>, migrator: Migrator) => void) {
   return (args: Arguments<T>): void => {
     const migrator = new Migrator({
-      ...pick(['region', 'accessKeyId', 'secretAccessKey', 'endpointUrl'], args),
+      ...pick(['region', 'accessKeyId', 'secretAccessKey', 'endpointUrl', 'typescript'], args),
       tableName: args.tableName,
       attributeName: args.attributeName,
       migrationsPath: args.migrationsPath,
