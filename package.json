@@ -1,5 +1,5 @@
 {
-  "name": "dynoraptor-cli",
+  "name": "@produce8/dynoraptor-cli",
   "version": "0.2.0",
   "description": "The DynamoDB migrations tool CLI",
   "bin": {
