@@ -101,10 +101,10 @@ export class Migrator extends Umzug implements Generator {
   }
 
   private async _validateMigrationsPathExistence() {
-      try {
-        await fs.promises.mkdir(this.migrationsPath);
+    try {
+      await fs.promises.access(this.migrationsPath);
     } catch (error) {
-        console.log(error);
+      await fs.promises.mkdir(this.migrationsPath);
     }
   }
 
