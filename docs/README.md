@@ -3,24 +3,11 @@
 The manuals will show all the flags and options which are available for the respective tasks.
 If you find yourself in a situation where you always define certain flags in order to
 make the CLI compliant to your project, you can move those definitions also into a file called
-`.dynoraptorrc`. The file will get `require`d if available and can therefore be either a JSON file, YAML
-or a Node.JS script that exports a hash.
-
-### Example for a Node.JS script
-
-```js
-var path = require('path')
-
-module.exports = {
-  migrationsPath: 'db/migrate'
-}
-```
-
-This will configure the CLI to always treat `db/migrate` as the directory for migrations.
+`.env`.
 
 ### The migration schema
 
-The CLI uses [umzug](https://github.com/sequelize/umzug) and its migration schema. This means a migration has to look like this:
+The CLI uses [umzug](https://github.com/sequelize/umzug) and its migration schema. This means a migration has to look like this (specify the `typescript` argument to create a .ts version of this script):
 
 ```js
 module.exports = {
