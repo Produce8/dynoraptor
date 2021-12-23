@@ -70,7 +70,8 @@ export function baseOptions(yargs: Argv<BaseCliOptions>) {
     .option('typescript', {
       describe: 'Create migration file as typescript',
       default: envVariables.typscript,
-      type: 'boolean'
+      type: 'boolean',
+      alias: 'ts'
     });
 }
 

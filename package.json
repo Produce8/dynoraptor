@@ -20,7 +20,8 @@
     "pretest": "npm run lint",
     "test": "jest",
     "coverage": "npm run test -- --coverage",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -46,8 +47,6 @@
     "url": "https://github.com/Produce8/dynoraptor/issues"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
     "@types/cli-color": "^2.0.0",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.2",
@@ -57,17 +56,15 @@
     "@typescript-eslint/parser": "^2.24.0",
     "aws-sdk-mock": "^5.1.0",
     "coveralls": "^3.0.11",
-    "eslint": "^6.8.0",
-    "jest": "^25.1.0",
+    "eslint": "^8.5.0",
+    "jest": "^27.4.5",
     "mockdate": "^2.0.5",
-    "semantic-release": "^17.1.2",
     "ts-jest": "^25.5.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
     "aws-sdk": "^2.673.0",
     "cli-color": "^2.0.0",
-    "cosmiconfig": "^6.0.0",
     "dotenv": "^10.0.0",
     "node-plop": "^0.25.0",
     "ramda": "^0.27.1",
