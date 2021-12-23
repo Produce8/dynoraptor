@@ -10,6 +10,8 @@ import logger from '../helpers/logger';
 import { getCurrentYYYYMMDDHHmms } from '../helpers/path';
 import DynamoDBStorage from '../storages/dynamodb';
 
+import fs from 'fs';
+
 export {DynamoDBStorage};
 
 export interface MigratorOptions {
@@ -98,6 +100,14 @@ export class Migrator extends Umzug implements Generator {
     });
   }
 
+  private async _validateMigrationsPathExistence() {
+      try {
+        await fs.promises.mkdir(this.migrationsPath);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   private async _handleTableCreation(client: AWS.DynamoDB, params: dynamoSchemaType) {
     const tablesResult = await client.listTables().promise();
     const tables = tablesResult.TableNames;
@@ -141,6 +151,7 @@ export class Migrator extends Umzug implements Generator {
       BillingMode: 'PAY_PER_REQUEST',
     };
     const dbClient = new AWS.DynamoDB();
+    await this._validateMigrationsPathExistence();
     await this._handleTableCreation(dbClient, params);
     await this._awaitTableActiveStatus(dbClient);
   }
