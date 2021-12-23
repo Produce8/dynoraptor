@@ -1,11 +1,10 @@
 module.exports = {
-  testEnvironment: 'node',
-  transform: {
-    '^.+\\.ts$': 'ts-jest',
-  },
-  testRegex: './tests/.+\\.test\\.ts$',
+  roots: ["<rootDir>/test/unit"],
+  testMatch: ["**/*.test.ts"],
   collectCoverage: false,
-  collectCoverageFrom: ['src/**/*.{js,ts}'],
-  moduleFileExtensions: ['ts', 'js', 'json'],
-  coverageReporters: ['text-summary', 'lcov'],
+  coverageDirectory: "coverage",
+  coverageReporters: ["text-summary"],
+  transform: {
+    "^.+\\.tsx?$": "ts-jest",
+},
 };

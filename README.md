@@ -1,16 +1,13 @@
-🧨 Dynoraptor
+Dynoraptor
 ==============
 
 The DynamoDB Migrations Tool Command Line Interface (CLI).
 
-<!-- [![Build Status](https://img.shields.io/github/workflow/status/Produce8/dynoraptor/release)](https://github.com/Produce8/dynoraptor/actions)
-[![Coverage Status](https://coveralls.io/repos/github/Produce8/dynoraptor/badge.svg?branch=master)](https://coveralls.io/github/Produce8/dynoraptor?branch=master)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) -->
-
-
 Table of Contents
 -----------------
 - [Installation](#installation)
+- [Setup](#Setup)
+- [Usage](#Usage)
 - [Documentation](#documentation)
 
 
@@ -20,7 +17,7 @@ Installation
 Make sure you have [AWS-SDK](https://aws.amazon.com/sdk-for-node-js/) installed and configured properly. Then install the Dynamit CLI to be used in your project with
 
 ```bash
-$ npm install --save-dev dynoraptor
+$ npm install --save-dev @produce8/dynoraptor-cli
 ```
 
 And then you should be able to run the CLI with
@@ -31,6 +28,22 @@ $ npx dynoraptor --help
 
 Migration records are supposed to be stored in the DynamoDB table with the `table-name` (`"migrations"` by default) and primary key `attribute-name` (`"name"` by default) defined as optional cli options. The tool cannot create the table for you yet, so make sure you created it properly. See [Creating a Table Developer Guide](https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/WorkingWithTables.Basics.html#WorkingWithTables.Basics.CreateTable)
 
+
+Setup
+-----
+
+There are two patterns of use for this tool. Configuration can be provided via the command line arguments, or with the use of
+a `.env` file. E.g:
+```
+MIGRATIONS_PATH=migrations
+AWS_ACCESS_KEY=YOUR_AWS_ACCESS_KEY
+AWS_SECRET_KEY=YOUR_AWS_SECRET_KEY
+AWS_REGION=us-west-2
+DYNAMO_ENDPOINT_URL=YOUR_DYNAMO_ENDPOINT
+MIGRATION_TABLE_NAME=migrations
+MIGRATION_PRIMARY_KEY=name
+TYPESCRIPT=false
+```
 
 Usage
 -----
