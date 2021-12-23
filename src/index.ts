@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import clc from 'cli-color';
 import yargs from 'yargs';
 
