@@ -18,6 +18,7 @@ export default {
     }),
 
   handler: baseHandler(async (args, migrator) => {
+    await migrator.prepare();
     await migrator.generate(args.name);
 
     logger.log(

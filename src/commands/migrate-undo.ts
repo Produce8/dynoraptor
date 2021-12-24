@@ -16,6 +16,7 @@ export default {
 
   handler: baseHandler(async (args, migrator) => {
     try {
+      await migrator.prepare();
       const migrations = await migrator.executed();
 
       if (migrations.length === 0) {

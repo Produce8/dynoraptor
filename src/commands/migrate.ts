@@ -69,6 +69,7 @@ async function migrate(args: CliOptions, migrator: Migrator) {
 
 async function migrationStatus(migrator: Migrator) {
   try {
+    await migrator.prepare();
     const executedMigrations = await migrator.executed();
 
     executedMigrations.forEach(migration => {
