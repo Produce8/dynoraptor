@@ -141,8 +141,12 @@ export class Migrator extends Umzug implements Generator {
       BillingMode: 'PAY_PER_REQUEST',
     };
     const dbClient = new AWS.DynamoDB();
-    await this._handleTableCreation(dbClient, params);
-    await this._awaitTableActiveStatus(dbClient);
+    try {
+      await this._handleTableCreation(dbClient, params);
+      await this._awaitTableActiveStatus(dbClient);
+    } catch (error) {
+      console.log('prepare failed', error);
+    }
   }
 }
 
