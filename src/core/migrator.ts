@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+import { DocumentClient, TableName } from 'aws-sdk/clients/dynamodb';
 import nodePlop from 'node-plop';
 import path from 'path';
 import { pick } from 'ramda';
@@ -99,8 +99,19 @@ export class Migrator extends Umzug implements Generator {
   }
 
   private async _handleTableCreation(client: AWS.DynamoDB, params: dynamoSchemaType) {
-    const tablesResult = await client.listTables().promise();
-    const tables = tablesResult.TableNames;
+    let discoveringTables = true;
+    let lastTableName: string;
+    const tables: TableName[] = [];
+    while (discoveringTables) {
+      const tablesResult = await client.listTables({ExclusiveStartTableName: lastTableName}).promise();
+      tables.push(...tablesResult.TableNames);
+      if (tablesResult.LastEvaluatedTableName) {
+        lastTableName = tablesResult.LastEvaluatedTableName;
+      } else {
+        discoveringTables = false;
+      }
+    }
+    console.log(`Discovered ${tables.length} dynamodb tables.`);
     if (tables.length > 0 && !tables.includes(this.tableName)) {
       await client.createTable(params).promise();
     }
